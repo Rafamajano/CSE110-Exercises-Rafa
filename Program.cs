@@ -1,43 +1,40 @@
 using System;
+using System.Collections.Generic;
 
 class Program
 {
     static void Main()
     {
-        DisplayWelcome();
+        List<int> numbers = new List<int>();
+        Console.WriteLine("Enter a list of numbers, type 0 when finished.");
 
-        string userName = PromptUserName();
-        int favoriteNumber = PromptUserNumber();
+        while (true)
+        {
+            Console.Write("Enter number: ");
+            int num = int.Parse(Console.ReadLine());
 
-        int squared = SquareNumber(favoriteNumber);
+            if (num == 0)
+                break;
 
-        DisplayResult(userName, squared);
-    }
+            numbers.Add(num);
+        }
 
-    static void DisplayWelcome()
-    {
-        Console.WriteLine("Welcome to the program!");
-    }
+        int sum = 0;
+        foreach (int number in numbers)
+        {
+            sum += number;
+        }
 
-    static string PromptUserName()
-    {
-        Console.Write("Please enter your name: ");
-        return Console.ReadLine();
-    }
+        double average = (numbers.Count > 0) ? (double)sum / numbers.Count : 0;
+        int max = (numbers.Count > 0) ? numbers[0] : 0;
+        foreach (int number in numbers)
+        {
+            if (number > max)
+                max = number;
+        }
 
-    static int PromptUserNumber()
-    {
-        Console.Write("Please enter your favorite number: ");
-        return int.Parse(Console.ReadLine());
-    }
-
-    static int SquareNumber(int num)
-    {
-        return num * num;
-    }
-
-    static void DisplayResult(string name, int squaredNumber)
-    {
-        Console.WriteLine($"{name}, the square of your number is {squaredNumber}");
+        Console.WriteLine($"The sum is: {sum}");
+        Console.WriteLine($"The average is: {average}");
+        Console.WriteLine($"The largest number is: {max}");
     }
 }
